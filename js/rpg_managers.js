@@ -1886,14 +1886,14 @@ SceneManager.initNwjs = function() {
     }
 };
 
-SceneManager.checkPluginErrors = function() {
-    PluginManager.checkErrors();
+//SceneManager.checkPluginErrors = function() {
+ //   PluginManager.checkErrors();
 };
 
-SceneManager.setupErrorHandlers = function() {
-    window.addEventListener('error', this.onError.bind(this));
-    document.addEventListener('keydown', this.onKeyDown.bind(this));
-};
+//SceneManager.setupErrorHandlers = function() {
+//window.addEventListener('error', this.onError.bind(this));
+    //document.addEventListener('keydown', this.onKeyDown.bind(this));
+}//;
 
 SceneManager.requestUpdate = function() {
     if (!this._stopped) {
@@ -2812,14 +2812,14 @@ PluginManager.setup = function(plugins) {
     }, this);
 };
 
-PluginManager.checkErrors = function() {
+//PluginManager.checkErrors = function() {
     var url = this._errorUrls.shift();
     if (url) {
         throw new Error('Failed to load: ' + url);
     }
 };
 
-PluginManager.parameters = function(name) {
+//PluginManager.parameters = function(name) {
     return this._parameters[name.toLowerCase()] || {};
 };
 
