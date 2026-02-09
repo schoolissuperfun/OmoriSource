@@ -11,7 +11,26 @@
     <link rel="stylesheet" type="text/css" href="fonts/gamefont.css">
     <title>OMORI</title>
 </head>
-
+<script>
+    // Fake the 'require' and 'nw' objects for browser compatibility
+    window.require = window.require || function(module) {
+        console.warn("Skipped Node module: " + module);
+        return {}; 
+    };
+    window.process = window.process || { platform: 'browser', env: {}, nextTick: function(f){setTimeout(f,0)} };
+    
+    // This specifically fixes the 'reading get' error
+    window.nw = window.nw || {
+        Window: { get: function() { return { on: function(){}, width: 1280, height: 720 }; } },
+        App: { argv: [], fullArgv: [] }
+    };
+</script>
+<script>
+    window.onerror = function(msg, url, line) {
+        alert("CRASH DETECTED: " + msg + "\nFile: " + url + "\nLine: " + line);
+        return false;
+    };
+</script>
 <body style="background-color: black">
     <script type="text/javascript" src="js/libs/pixi.js"></script>
     <script type="text/javascript" src="js/libs/pixi-tilemap.js"></script>

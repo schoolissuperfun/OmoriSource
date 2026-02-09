@@ -1816,7 +1816,7 @@ SceneManager.initialize = function() {
     this.checkFileAccess();
     this.initAudio();
     this.initInput();
-    this.initNwjs();
+    //this.initNwjs();
     this.checkPluginErrors();
     this.setupErrorHandlers();
 };
@@ -1874,28 +1874,19 @@ SceneManager.initInput = function() {
 };
 
 SceneManager.initNwjs = function() {
-    if (Utils.isNwjs()) {
-        var gui = require('nw.gui');
-        var win = gui.Window.get();
-        if (process.platform === 'darwin' && !win.menu) {
-            var menubar = new gui.Menu({ type: 'menubar' });
-            var option = { hideEdit: true, hideWindow: true };
-            menubar.createMacBuiltin('Game', option);
-            win.menu = menubar;
-        }
-    }
+    // Function disabled for browser compatibility
+};
+   
+
+SceneManager.checkPluginErrors = function() {
+    // PluginManager.checkErrors();
 };
 
-//SceneManager.checkPluginErrors = function() {
- //   PluginManager.checkErrors();
+SceneManager.setupErrorHandlers = function() {
+    window.addEventListener('error', this.onError.bind(this));
+    document.addEventListener('keydown', this.onKeyDown.bind(this));
 };
-
-//SceneManager.setupErrorHandlers = function() {
-//window.addEventListener('error', this.onError.bind(this));
-    //document.addEventListener('keydown', this.onKeyDown.bind(this));
-}//;
-
-SceneManager.requestUpdate = function() {
+fu = function() {
     if (!this._stopped) {
         requestAnimationFrame(this.update.bind(this));
     }
@@ -2812,14 +2803,15 @@ PluginManager.setup = function(plugins) {
     }, this);
 };
 
-//PluginManager.checkErrors = function() {
+PluginManager.checkErrors = function() {
     var url = this._errorUrls.shift();
     if (url) {
-        throw new Error('Failed to load: ' + url);
+        // throw new Error('Failed to load: ' + url);
+        console.warn('Skipped loading: ' + url);
     }
 };
 
-//PluginManager.parameters = function(name) {
+PluginManager.parameters = function(name) {
     return this._parameters[name.toLowerCase()] || {};
 };
 
